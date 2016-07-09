@@ -57,7 +57,7 @@ uint16_t  ACTUAL_FREQ;
 void setup()
 {
   sortChannel();
-  ACTUAL_FREQ = getFreq(ACTUAL_CHANNEL);
+
 
   // initialize with the I2C addr 0x3D or 0x3C(for the 128x64)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
@@ -95,6 +95,7 @@ void setup()
   //EEPROMより設定値読み込み
   if (readEeprom() == 0) writeEeprom();
 
+  ACTUAL_FREQ = getFreq(ACTUAL_CHANNEL);
   setChannel();
 
 }
@@ -233,7 +234,7 @@ void diversity()
 }
 void changeAvout(uint8_t maxModule)
 {
-  //avOut(maxModule)
+  avOut(maxModule);
   display.setTextSize(1);
   display.setCursor(20, 8 * maxModule);
   display.print("*");
