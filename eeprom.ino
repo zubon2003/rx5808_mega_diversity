@@ -11,12 +11,12 @@ void writeEeprom()
     EEPROM.write(i * 4 + 3, lowByte(MIN_RSSI[i]));
   }
 
-  EEPROM.write(32, highByte(ACTUAL_CHANNEL));
-  EEPROM.write(33, lowByte(ACTUAL_CHANNEL));
+  EEPROM.write(MODULE_NUM * 4, highByte(ACTUAL_CHANNEL));
+  EEPROM.write(MODULE_NUM* 4 + 1, lowByte(ACTUAL_CHANNEL));
 
-  for (uint8_t i = 0; i <= 33; i++) checksum = checksum + EEPROM.read(i); //XOR CHECKSUM
+  for (uint8_t i = 0; i <= MODULE_NUM * 4 + 1; i++) checksum = checksum + EEPROM.read(i); //XOR CHECKSUM
 
-  EEPROM.write(34, checksum);
+  EEPROM.write(MODULE_NUM * 4 + 2, checksum);
 }
 
 
@@ -39,7 +39,7 @@ uint8_t readEeprom()
       MIN_RSSI[i] = (temp[i * 4 + 2] << 8) + temp[i * 4 + 3];
     }
 
-    ACTUAL_CHANNEL = (temp[32] << 8) + temp[33];
+    ACTUAL_CHANNEL = (temp[MODULE_NUM] << 8) + temp[MODULE_NUM + 1];
   }
   else return (0);
 }
