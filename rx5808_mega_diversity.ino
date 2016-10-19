@@ -48,8 +48,8 @@ uint16_t BAND_CHANNEL_TABLE[40] = {
 uint16_t SORTED_CHANNEL_FREQ_TABLE[40];
 uint16_t SORTED_BAND_CHANNEL_TABLE[40];
 
-uint16_t MAX_RSSI[8] = {230, 230, 230, 230, 230, 230, 230, 230};
-uint16_t MIN_RSSI[8] = {100, 100, 100, 100, 100, 100, 100, 100};
+uint16_t MAX_RSSI[16] = {230, 230, 230, 230, 230, 230, 230, 230, 230, 230, 230, 230, 230, 230, 230, 230};
+uint16_t MIN_RSSI[16] = {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
 
 uint16_t  ACTUAL_CHANNEL = 31;
 uint16_t  ACTUAL_FREQ;
@@ -181,8 +181,8 @@ void diversity()
   uint16_t maxRssi = 0;
   uint32_t now;
   uint32_t nextTime = 0;
-  uint16_t mRssi[8][10];
-  uint16_t sumRssi[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+  uint16_t mRssi[16][10];
+  uint16_t sumRssi[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   for (uint8_t i = 0; i < MODULE_NUM; i++)
   {
     for (uint8_t j = 0; j < 10; j++)
@@ -210,11 +210,7 @@ void diversity()
       maxRssi = 0;
       maxModule = 0;
       for (uint8_t i = 0; i < MODULE_NUM; i++)
-      {
-        //sumRssi[i] = sumRssi[i] - mRssi[i][cnt];
-        //mRssi[i][cnt] = mappedRSSI(i);
-        //sumRssi[i] = sumRssi[i] + mRssi[i][cnt];
-        
+      { 
         mRssi[i][cnt] = mappedRSSI(i);
         sumRssi[i] = 0;
         for (uint8_t j = 0; j < 10; j++) sumRssi[i] = sumRssi[i] + mRssi[i][j];
