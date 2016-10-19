@@ -41,7 +41,7 @@ uint8_t readEeprom()
       MIN_RSSI[i] = (temp[i * 4 + 2] << 8) + temp[i * 4 + 3];
     }
 
-    ACTUAL_CHANNEL = (temp[MODULE_NUM] << 8) + temp[MODULE_NUM + 1];
+    ACTUAL_CHANNEL = (temp[MODULE_NUM * 4] << 8) + temp[MODULE_NUM * 4 + 1];
   }
   else return (0);
 }
