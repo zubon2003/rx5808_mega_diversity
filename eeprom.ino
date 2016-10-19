@@ -2,6 +2,8 @@ void writeEeprom()
 {
   uint8_t checksum = 0;
 
+  for (uint8_t i = 0; i < 67; i++) EEPROM.write(i ,0);
+
 
   for (uint8_t i = 0; i < MODULE_NUM; i++)
   {
