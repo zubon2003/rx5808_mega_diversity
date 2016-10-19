@@ -23,14 +23,14 @@ void writeEeprom()
 //EEPROMから
 uint8_t readEeprom()
 {
-  uint8_t temp[35];
+  uint8_t temp[67];
   uint8_t checksum = 0;
-  for (uint8_t i = 0; i <= 33; i++)
+  for (uint8_t i = 0; i <= MODULE_NUM * 4 + 1; i++)
   {
     temp[i] = EEPROM.read(i);
     checksum = checksum + EEPROM.read(i);
   }
-  if (checksum == EEPROM.read(34))
+  if (checksum == EEPROM.read(MODULE_NUM * 4 + 2))
   {
 
     for (uint8_t i = 0; i < MODULE_NUM; i++)
